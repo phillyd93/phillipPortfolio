@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/base.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="scripts/jquery-3.4.1.js"></script>
+
+  <script type="text/javascript">
+      var TxtType = function(el, toRotate, period)  {
+          this.toRotate = toRotate;
+          this.el = el;
+          this.loopNum = 0;
+          this.period = parseInt(period, 10) || 2000;
+          this.txt = '';
+          this.tick();
+          this.isDeleting = false;
+      }  
+
+      TxtType.prototype.tick = function() {
+          
+          var i = this.loopNum % this.toRotate.length;
+          var fullTxt = this.toRotate[i];
+
+          if(this.isDeleting) {
+              this.txt = fullTxt.substring(0, this.txt.length - 1);
+          }
+          else {
+              this.txt = fullTxt.substring(0, this.txt.length + 1);
+          }
+
+          this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+          var that = this;
+          var delta = 200 - Math.random() * 100;
+
+          if(this.isDeleting) {delta /= 2;}
+
+          if(!this.isDeleting && this.txt === fullTxt) {
+              delta = this.period;
+              this.isDeleting = true;
+          }
+          else if(this.isDeleting && this.txt === '') {
+              this.isDeleting = false;
+              this.loopNum++;
+              delta = 500;
+          }
+
+          setTimeout(function() {
+            that.tick();
+          }, delta);
+      };
+
+      window.onload = function() {
+          var elements = document.getElementsByClassName('typewrite');
+          for(var i=0; i < elements.length; i++) {
+              var toRotate = elements[i].getAttribute('data-type');
+              var period = elements[i].getAttribute('data-period');
+
+              if(toRotate) {
+                  new TxtType(elements[i], JSON.parse(toRotate), period);
+              }
+              }
+              var css = document.createElement("style");
+              css.type = "text/css";
+              css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+              document.body.appendChild(css);
+          
+          
+          
+              var blink = document.getElementById('blink');
+        setInterval(function() {
+            blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
+        }, 500);
+          };
+      
+        $(document).on('click', '.sideNavigator', function (event) {
+            $( "i, p",this).addClass('active');
+
+            $(this).siblings().find("i, p").removeClass('active');
+
+            $(".sideBarSquare", this).addClass('sideBarSquareBorderRight');
+
+            $(this).siblings().find(".sideBarSquare").removeClass('sideBarSquareBorderRight');
+
+            
+            if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function(){
+
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
+            } // End if
+  
+
+        });
+    
+  </script>
+</head>
+
+<body>
+  <div id="sideBar">
+    <div id="nameHeader">
+        <p id="nameHeaderText"><b>Phillip</b></p>
+    </div>
+    <a href="#personalHomeSection" class="sideNavigator" style="text-decoration:none; color:black;">
+        <div class="sideBarSquare sideBarSquareBorderRight">
+            <i class="fa fa-home active"></i>
+            <p class="active">HOME</p>
+        </div>
+    </a>
+    <a href="#aboutMe" class="sideNavigator" style="text-decoration:none; color:black;">
+        <div class="sideBarSquare">
+            <i class="fa fa-address-card"></i>
+            <p>ABOUT ME</p>
+        </div>
+    </a>
+    <a href="#" class="sideNavigator" style="text-decoration:none; color:black;">
+        <div class="sideBarSquare">
+            <i class="fa fa-bell"></i>
+            <p>SERVICES</p>
+        </div>
+    </a>
+    <a href="#" class="sideNavigator" style="text-decoration:none; color:black;">
+        <div class="sideBarSquare">
+            <i class="fa fa-suitcase"></i>
+            <p>PORTFOLIO</p>
+        </div>
+    </a>
+    <a href="#" class="sideNavigator" style="text-decoration:none; color:black;">
+        <div class="sideBarSquare">
+            <i class="fa fa-bullhorn"></i>
+            <p>BLOG</p>
+        </div>
+    </a>
+    <a href="#" class="sideNavigator" style="text-decoration:none; color:black;">
+        <div class="sideBarSquare">
+            <i class="fa fa-address-book"></i>
+            <p>CONTACT</p>
+        </div>
+    </a>
+  </div>
+  <div id="container">
+    <div id="main">
+      <div id="personalHomeSection" style="width:100%; float:left;">
+        <img style="height:100vh; float:right; padding-right:100px; background-image:linear-gradient(-90deg, rgb(207, 207, 207), white);" src="images/Phillip Office Background Removed.png" />
+        <div style="width:50%; float:left; margin-top:170px;">
+            <p class="profileText" style="font-size:1.4em; margin-left:140px;">Hello World, I'm...</p>
+            <p class="profileText" style="font-size:4em; margin-left:140px; margin-top:0; margin-bottom:0;"><b>Phillip Devreaux</b></p>
+            <p class="profileText" style="font-size:1.4em; margin-left:140px; margin-top:0;">I Am A Digilent <span class="profileText typewrite" id="injectedText" style="text-decoration:underline;" data-period="2000" data-type='["Web Developer", "Full-Stack Developer", "Computer Science Grad", "Creator", "Artist"]'><span class="wrap"></span></span><span id="blink"><b>|</b></span></p>
+            <p class="profileText" style="color:rgb(104, 104, 104); margin-left:140px;">Constantly creating and stretching beyond limitations</p>
+            
+            <a class="personalButtons" style="margin-left:140px; color:rgb(29, 104, 243);"><b>MY WORK</b></a>
+            <a class="personalButtons" style="background-color:rgb(29, 104, 243); color:white; margin-left:40px;"><b>CONTACT ME</b></a>
+        </div>
+      </div>
+      <div id="aboutMe" style="float:left; width:100%; background-image:linear-gradient(-90deg, rgb(202, 202, 202), rgb(202, 202, 202));">
+        <div id="aboutMeLeftWrapper" style="float:left; margin-top:100px; width:50%;">
+            <p class="profileText" style="font-size:2.5em; margin-left:180px; margin-top:0; margin-bottom:0; white-space:nowrap;"><b>ABOUT ME</b></p>
+            <div style="width:100px; height:5px; background-color:rgb(29, 104, 243); margin-left:180px;">
+
+            </div>
+            <p class="profileText" style="margin-left:180px; color:rgb(75, 75, 75); white-space:nowrap;">A SOFTWARE DEVELOPER IN WASHINGTON D.C.</p>
+        
+            <div id="pictureBox" style="margin-left:180px; padding-top:20px; margin-bottom:50px;width:450px; height:500px; background-color:white;">
+                <div id="innerPictureBox" style="margin-left:20px; width:410px; height:460px; background-image:linear-gradient(-90deg, rgb(200, 199, 199), rgb(209, 209, 209));">
+                    <img style="height:auto; margin-top:-52px; width:385px;" src="images/StandingWithLaptopPhillipNoBackground.png">
+                </div>
+            </div>
+        </div>
+
+        <div id="aboutMeRightWrapper" style="float:left; margin-top:100px; width:50%;">
+            <p class="profileText" style="font-size:2.3em; margin-left:20px; margin-top:150px; margin-bottom:0; white-space:nowrap;"><b>I'M PHILLIP DEVREAUX</b></p>
+            <p class="profileText" style="font-size:1.1em; margin-left:20px; margin-top:0; margin-bottom:0; white-space:nowrap;">A Mid-level <span style="color:rgb(29, 104, 243);">FullStack Developer</span> in Washington <span style="color:rgb(29, 104, 243);">D.C.</span></p>
+            <br />
+            <p class="profileText" style="font-size:1em; margin-left:20px; margin-top:0; margin-bottom:0; color:rgb(102, 102, 102);">I enjoy developing applications 
+                of all types. Web design and development especially 
+                gives me an outlet for my creativity. I have a special 
+                passion for learning and seeing just how far I can push 
+                my mind.
+            </p>
+            
+            <div style="width:250px; height:10px; margin-top:40px; margin-left:20px; background-color:rgb(29, 104, 243);">
+                
+            </div>
+            
+        </div>
+        
+      </div>
+    </div>      
+  </div>
+  <footer id="footer">
+  </footer>
+</body>
+</html>

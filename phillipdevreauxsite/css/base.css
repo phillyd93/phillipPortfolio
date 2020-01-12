@@ -1,0 +1,93 @@
+* {
+    box-sizing:border-box;
+}
+
+html, body {
+    height:100%;
+    padding:100%;
+    margin:0;
+    padding:0;  
+}
+
+#container {
+    min-height:100%;
+}
+
+#main {
+    overflow:auto; 
+    padding-bottom:100px; 
+}
+
+#footer {
+    background-color:#000; 
+    position:relative; 
+    height:100px; 
+    margin-top:-100px; 
+    clear:both;
+    width:92%;
+    float:right;
+}
+
+#sideBar {
+    width:8%;
+    height:100vh;
+    position:fixed;
+    box-shadow: 5px 10px 18px #888888;
+    background-color:white;
+}
+
+#nameHeader {
+    text-align:center;
+    background-color:rgb(29, 104, 243);
+    height:40px;
+}
+
+#nameHeaderText {
+    font-family:'Poppins', sans-serif; 
+    font-size:1em; 
+    color:white; 
+    margin:0;
+    padding-top:8px;
+}
+
+.sideBarSquare {
+    height:90px;
+    text-align:center;
+    border-bottom:1px solid rgb(221, 221, 221);
+}
+
+.sideBarSquare p {
+    margin:0;
+    font-family:'Poppins', sans-serif;
+}
+
+.sideBarSquare i {
+    font-size:2em;
+    padding-top:18px;
+}
+
+.profileText {
+    font-family:'Poppins', sans-serif;
+}
+
+.personalButtons {
+    display:inline-block; 
+    font-family:'Poppins', sans-serif; 
+    border-color: rgb(29, 104, 243); 
+    border-radius:3px; 
+    font-size: 12px; 
+    text-transform: uppercase; 
+    font-weight: bold; 
+    letter-spacing: 1px; 
+    border-width: 3px;
+    border-style: solid; 
+    padding: 15px 25px; 
+}
+
+.active {
+    color:rgb(29, 104, 243);
+}
+
+.sideBarSquareBorderRight {
+    border-right: 5px solid rgb(29, 104, 243);
+}
